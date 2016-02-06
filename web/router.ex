@@ -16,7 +16,7 @@ defmodule BibleStudy.Router do
   scope "/", BibleStudy do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", SearchController, :index
     post "/search", SearchController, :create
   end
 

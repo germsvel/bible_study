@@ -1,6 +1,6 @@
 <div>
   <%= form_for @conn, search_path(@conn, :create), [as: :search], fn f -> %>
-    <%= text_input f, :for %>
+    <%= text_input f, :passage %>
     <%= submit "Search" %>
   <% end %>
   <p>Search a Bible passage to find resources</p>
