@@ -1,15 +1,24 @@
 defmodule BibleStudy.SearchController do
   use BibleStudy.Web, :controller
+  alias BibleStudy.Bible
 
   def index(conn, _params) do
-    render conn, "index.html"
+    conn
+    |> assign(:scripture, "")
+    |> render("index.html")
   end
 
   def create(conn, params) do
     passage = get_passage(params)
+    scripture = get_scripture(passage)
     conn
-    |> put_flash(:info, passage)
+    |> assign(:passage, passage)
+    |> assign(:scripture, scripture)
     |> render("index.html")
+  end
+
+  defp get_scripture(passage) do
+    Bible.find(passage)
   end
 
   defp get_passage(params) do

@@ -4,4 +4,7 @@
     <%= submit "Search" %>
   <% end %>
   <p>Search a Bible passage to find resources</p>
+
+  <%= @scripture %>
+
 </div>
