@@ -1,19 +1,21 @@
 defmodule BibleStudy.SearchController do
   use BibleStudy.Web, :controller
   alias BibleStudy.Bible
+  alias BibleStudy.Sermons
 
   def index(conn, _params) do
     conn
     |> assign(:scripture, "")
+    |> assign(:sermons, [])
     |> render("index.html")
   end
 
   def create(conn, params) do
     passage = get_passage(params)
-    scripture = get_scripture(passage)
     conn
-    |> assign(:passage, passage)
-    |> assign(:scripture, scripture)
+    |> assign(:passage, passage.original)
+    |> assign(:scripture, get_scripture(passage))
+    |> assign(:sermons, [])
     |> render("index.html")
   end
 
@@ -21,13 +23,18 @@ defmodule BibleStudy.SearchController do
     Bible.find(passage)
   end
 
+  defp get_sermons(passage) do
+    Sermons.find(passage)
+  end
+
   defp get_passage(params) do
-    case Map.get(params, "search") do
-      %{"passage" => passage}
-        -> passage
-      _
-        -> ""
-    end
+    %{"passage" => passage} = Map.get(params, "search")
+    parse_passage(passage)
+  end
+
+  defp parse_passage(""), do: %Passage{}
+  defp parse_passage(passage) do
+    %Passage{original: passage}
   end
 
 end

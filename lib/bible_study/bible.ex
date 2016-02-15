@@ -2,8 +2,8 @@ defmodule BibleStudy.Bible do
 
   def find(passage) do
     url = passage
-          |> parse_passage()
-          |> generate_url()
+        |> parse_passage()
+        |> generate_url()
 
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
@@ -16,7 +16,7 @@ defmodule BibleStudy.Bible do
   end
 
   defp parse_passage(passage) do
-    String.replace(passage, " ", "+")
+    String.replace(passage.original, " ", "+")
   end
 
   defp generate_url(passage) do

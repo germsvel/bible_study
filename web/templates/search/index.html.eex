@@ -7,4 +7,9 @@
 
   <%= @scripture %>
 
+  <ul>
+    <%= for sermon <- @sermons do %>
+      <li>sermon</li>
+    <% end %>
+  </ul>
 </div>
