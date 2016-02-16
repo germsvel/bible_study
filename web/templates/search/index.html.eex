@@ -8,8 +8,6 @@
   <%= @scripture %>
 
   <ul>
-    <%= for sermon <- @sermons do %>
-      <li>sermon</li>
-    <% end %>
+    <%= @sermons %>
   </ul>
 </div>

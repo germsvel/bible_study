@@ -18,7 +18,7 @@ defmodule BibleStudy.Mixfile do
   def application do
     [mod: {BibleStudy, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :httpoison]]
+                    :phoenix_ecto, :postgrex, :httpoison, :floki]]
   end
 
   # Specifies which paths to compile per environment
@@ -35,6 +35,7 @@ defmodule BibleStudy.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:httpoison, "~> 0.8.0"}]
+     {:httpoison, "~> 0.8.0"},
+     {:floki, "~> 0.7"}]
   end
 end
