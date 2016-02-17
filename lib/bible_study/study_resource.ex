@@ -1,3 +1,3 @@
 defmodule BibleStudy.StudyResource do
-  defstruct [:url, :title, :author, :scripture_reference, :date, :type]
+  defstruct [:url, :title, :author, :scripture_reference, :date, :type, :source]
 end

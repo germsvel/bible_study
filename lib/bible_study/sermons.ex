@@ -3,6 +3,7 @@ defmodule BibleStudy.Sermons do
 
   def find(passage) do
     [DesiringGod.find(passage)]
+    |> List.flatten
   end
 
 end

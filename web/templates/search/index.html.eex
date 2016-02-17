@@ -8,6 +8,16 @@
   <%= @scripture %>
 
   <ul>
-    <%= @sermons %>
+    <h4>Sermons</h4>
+    <%= for sermon <- @sermons do %>
+      <li>
+        <p><%= sermon.scripture_reference %></p>
+        <a href=<%= sermon.url %>>
+          <p><%= sermon.title %></p>
+        </a>
+        <p><%= sermon.date %></p>
+        <p>By <%= sermon.author %></p>
+      </li>
+    <% end %>
   </ul>
 </div>
