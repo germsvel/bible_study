@@ -5,16 +5,17 @@
   <% end %>
   <p>Search a Bible passage to find resources</p>
 
+  <h4><%= @passage %></h4>
   <%= @scripture %>
 
   <ul>
     <h4>Sermons</h4>
     <%= for sermon <- @sermons do %>
       <li>
-        <p><%= sermon.scripture_reference %></p>
         <a href=<%= sermon.url %>>
           <p><%= sermon.title %></p>
         </a>
+        <p><%= sermon.scripture_reference %></p>
         <p><%= sermon.date %></p>
         <p>By <%= sermon.author %></p>
       </li>

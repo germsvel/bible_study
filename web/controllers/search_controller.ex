@@ -6,6 +6,7 @@ defmodule BibleStudy.SearchController do
 
   def index(conn, _params) do
     conn
+    |> assign(:passage, "")
     |> assign(:scripture, "")
     |> assign(:sermons, [])
     |> render("index.html")
@@ -37,18 +38,16 @@ defmodule BibleStudy.SearchController do
   defp parse_passage(passage) when is_binary(passage) do
     parse_passage(passage, String.split(passage))
   end
-  defp parse_passage(original, [pre, book, chapter_verses]) do
-    parse_passage(original, ["#{pre} #{book}", chapter_verses])
+  defp parse_passage(original, [book]) do
+    parse_passage(original, [book, "1:1"])
+  end
+  defp parse_passage(original, [num, book, chapter_verses]) do
+    parse_passage(original, ["#{num} #{book}", chapter_verses])
   end
   defp parse_passage(original, [book, chapter_verses]) do
-    [chapter, verses] = split_chapter_verses(chapter_verses)
+    [chapter, verses] = String.split(chapter_verses, ":")
     book = String.downcase(book)
     %Passage{original: original, book: book, chapter: chapter, verses: verses}
   end
-
-  defp split_chapter_verses(chapter_verses) do
-    String.split(chapter_verses, ":")
-  end
-
 
 end

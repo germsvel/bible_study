@@ -1,4 +1,5 @@
 defmodule BibleStudy.Bible do
+  @base_url "http://www.esvapi.org/v2/rest/passageQuery"
 
   def find(passage) do
     url = passage
@@ -12,6 +13,8 @@ defmodule BibleStudy.Bible do
           IO.puts "Not found :("
       {:error, %HTTPoison.Error{reason: reason}} ->
           IO.inspect reason
+      _ ->
+        IO.puts "Error retrieving passage #{passage.original}"
     end
   end
 
@@ -20,7 +23,7 @@ defmodule BibleStudy.Bible do
   end
 
   defp generate_url(passage) do
-    "http://www.esvapi.org/v2/rest/passageQuery?key=IP&passage=" <> passage <> "&include-headings=false&output-format=plain-text&include-passage-references=false&include-footnotes=false&include-copyright=false&include-short-copyright=false"
+    "#{@base_url}?key=IP&passage=#{passage}&include-headings=false&output-format=plain-text&include-passage-references=false&include-footnotes=false&include-copyright=false&include-short-copyright=false&include-verse-numbers=false&include-first-verse-numbers=false"
   end
 
 end
