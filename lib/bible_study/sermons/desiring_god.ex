@@ -34,11 +34,12 @@ defmodule BibleStudy.Sermons.DesiringGod do
   end
 
   defp create_resource(html_tree) do
-    %Resource{author: "John Piper", type: :sermon}
+    %Resource{type: :sermon}
     |> add_title(html_tree)
     |> add_url(html_tree)
     |> add_scripture_ref(html_tree)
     |> add_date(html_tree)
+    |> add_author(html_tree)
   end
 
   defp add_url(resource, html_tree) do
@@ -57,6 +58,10 @@ defmodule BibleStudy.Sermons.DesiringGod do
   end
   defp add_date(resource, html_tree) do
     %{resource | date: search_tree(html_tree, ".time")}
+  end
+  defp add_author(resource, html_tree) do
+    author = search_tree(html_tree, ".author") |> String.replace("by", "") |> String.strip
+    %{resource | author: author}
   end
 
   defp search_tree(html_tree, css_selector) do
