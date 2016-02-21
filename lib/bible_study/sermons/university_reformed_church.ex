@@ -55,11 +55,11 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
     %{resource | scripture_reference: scripture}
   end
   defp add_date(resource, html_tree) do
-    date = Floki.find(html_tree, ".sermonDate") |> Floki.text
+    date = Floki.find(html_tree, ".sermonDate") |> Floki.text |> String.replace("Given on: ", "") |> String.replace(~r/\s\(.+\)\./, "")
     %{resource | date: date}
   end
   defp add_author(resource, html_tree) do
-    author = Floki.find(html_tree, ".sermonSpeaker") |> Floki.text
+    author = Floki.find(html_tree, ".sermonSpeaker") |> Floki.text |> String.replace("Speaker: ", "")
     %{resource | author: author}
   end
 end
