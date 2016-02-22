@@ -51,7 +51,8 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
     %{resource | url: url}
   end
   defp add_scripture_ref(resource, html_tree) do
-    scripture = Floki.find(html_tree, ".subTitle") |> Floki.text
+    text = Floki.find(html_tree, ".subTitle") |> Floki.text
+    [[scripture]] = Regex.scan(~r/.+\d{1,}:[\-\d]{1,}/, text)
     %{resource | scripture_reference: scripture}
   end
   defp add_date(resource, html_tree) do

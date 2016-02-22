@@ -31,23 +31,7 @@ defmodule BibleStudy.SearchController do
 
   defp get_passage(params) do
     %{"passage" => passage} = Map.get(params, "search")
-    parse_passage(passage)
-  end
-
-  defp parse_passage(""), do: %Passage{}
-  defp parse_passage(passage) when is_binary(passage) do
-    parse_passage(passage, String.split(passage))
-  end
-  defp parse_passage(original, [book]) do
-    parse_passage(original, [book, "1:1"])
-  end
-  defp parse_passage(original, [num, book, chapter_verses]) do
-    parse_passage(original, ["#{num} #{book}", chapter_verses])
-  end
-  defp parse_passage(original, [book, chapter_verses]) do
-    [chapter, verses] = String.split(chapter_verses, ":")
-    book = String.downcase(book)
-    %Passage{original: original, book: book, chapter: chapter, verses: verses}
+    Passage.from_binary(passage)
   end
 
 end
