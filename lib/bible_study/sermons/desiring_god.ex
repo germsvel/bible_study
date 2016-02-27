@@ -54,7 +54,8 @@ defmodule BibleStudy.Sermons.DesiringGod do
     %{resource | title: search_tree(html_tree, ".title") }
   end
   defp add_scripture_ref(resource, html_tree) do
-    %{resource | scripture_reference: search_tree(html_tree, ".scripture-reference")}
+    ref = search_tree(html_tree, ".scripture-reference") |> String.replace("–", "-")
+    %{resource | scripture_reference: ref}
   end
   defp add_date(resource, html_tree) do
     %{resource | date: search_tree(html_tree, ".time")}

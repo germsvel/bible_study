@@ -11,10 +11,15 @@ defmodule BibleStudy.Sermons do
 
   defp filter_by_passage(sermons, passage) do
     Enum.filter(sermons, fn(sermon) ->
-      IO.inspect sermon.scripture_reference
-      scripture = Passage.from_binary(sermon.scripture_reference)
-      scripture.book == passage.book && scripture.chapter == passage.chapter
+      sermon_contains_passage?(sermon, passage)
     end)
+  end
+
+  defp sermon_contains_passage?(sermon, passage) do
+    scripture = Passage.from_string(sermon.scripture_reference)
+    scripture.book == passage.book &&
+    scripture.chapter == passage.chapter &&
+    ((passage.first_verse >= scripture.first_verse && passage.first_verse <= scripture.last_verse) || (passage.last_verse >= scripture.first_verse && passage.last_verse <= scripture.last_verse))
   end
 
 end
