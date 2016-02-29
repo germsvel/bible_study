@@ -7,6 +7,7 @@ defmodule BibleStudy.Sermons.DesiringGod do
     generate_url(passage)
     |> request_page()
     |> process_response()
+    |> filter_resources_by_passage(passage)
   end
 
   defp generate_url(passage) do
@@ -67,6 +68,12 @@ defmodule BibleStudy.Sermons.DesiringGod do
 
   defp search_tree(html_tree, css_selector) do
     Floki.find(html_tree, css_selector) |> Floki.text |> String.strip
+  end
+
+  defp filter_resources_by_passage(sermons, passage) do
+    Enum.filter(sermons, fn(sermon) ->
+      Resource.relevant_for_passage?(sermon, passage)
+    end)
   end
 
 end

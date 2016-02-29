@@ -7,6 +7,7 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
     generate_url(passage)
     |> request_page()
     |> process_response()
+    |> filter_resources_by_passage(passage)
   end
 
   defp generate_url(passage) do
@@ -62,5 +63,11 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
   defp add_author(resource, html_tree) do
     author = Floki.find(html_tree, ".sermonSpeaker") |> Floki.text |> String.replace("Speaker: ", "")
     %{resource | author: author}
+  end
+
+  defp filter_resources_by_passage(sermons, passage) do
+    Enum.filter(sermons, fn(sermon) ->
+      Resource.relevant_for_passage?(sermon, passage)
+    end)
   end
 end
