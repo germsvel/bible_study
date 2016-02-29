@@ -4,7 +4,9 @@ defmodule BibleStudy.Sermons do
   alias BibleStudy.Passage
 
   def find(passage) do
-    [DesiringGod.find(passage), URC.find(passage)]
+    [DesiringGod, URC]
+    |> Enum.map(&Task.async(&1, :find, [passage]))
+    |> Enum.map(&Task.await(&1))
     |> List.flatten
     |> filter_by_passage(passage)
   end
