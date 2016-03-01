@@ -27,6 +27,7 @@ defmodule BibleStudy.Passage do
 
   defp split_chapter(chapter_verses) do
     case String.split(chapter_verses, ":") do
+      [chapter] -> {chapter, "1-200"}
       [chapter, verses] -> {chapter, verses}
       [chapter, v_to_ch, _last_verse] ->
         [first_verse] = String.split(v_to_ch, "-") |> Enum.take(1)
