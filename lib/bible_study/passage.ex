@@ -27,12 +27,19 @@ defmodule BibleStudy.Passage do
 
   defp split_chapter(chapter_verses) do
     case String.split(chapter_verses, ":") do
-      [chapter] -> {chapter, "1-200"}
+      [chapter] -> get_first_or_only_chapter(chapter)
       [chapter, verses] -> {chapter, verses}
       [chapter, v_to_ch, _last_verse] ->
         [first_verse] = String.split(v_to_ch, "-") |> Enum.take(1)
         {chapter, "#{first_verse}-200"}
     end
+  end
+
+  defp get_first_or_only_chapter(chapter) do
+    # trying to account for scenario like
+    # Romans 1-18
+    [first | _] = String.split(chapter, "-")
+    {first, "1-200"}
   end
 
   defp split_verses(verses) do

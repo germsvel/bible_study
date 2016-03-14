@@ -13,8 +13,9 @@ defmodule BibleStudy.Sermons.TheGospelCoalition do
 
   defp generate_url(passage) do
     book = String.capitalize(passage.book)
-    chapter = book <> "+" <> passage.chapter
-    "#{@base_url}/library?f[book][]=#{book}&f[chapter][]=#{chapter}&f[language][]=English&f[resource_category][]=Sermons"
+    chapter = Integer.to_string(passage.chapter)
+    tgc_chapter = book <> "+" <> chapter
+    "#{@base_url}/library?f[book][]=#{book}&f[chapter][]=#{tgc_chapter}&f[language][]=English&f[resource_category][]=Sermons"
   end
 
   defp request_page(url) do
@@ -57,13 +58,13 @@ defmodule BibleStudy.Sermons.TheGospelCoalition do
     %{resource | title: search_tree(html_tree, "h3") }
   end
   defp add_scripture_ref(resource, html_tree) do
-    [_, ref] = html_tree |> get_date_and_scripture()
-    [ref] = ref |> String.split(";") |> Enum.filter(fn (x) -> String.contains?(x, "Romans") end) |> Enum.take(1)
-    ref = String.strip(ref)
-    %{resource | scripture_reference: ref}
+    {_, ref} = html_tree |> get_date_and_scripture()
+    [romans_ref] = ref |> String.split(";") |> Enum.filter(fn (x) -> String.contains?(x, "Romans") end) |> Enum.take(1)
+    clean_ref = String.strip(romans_ref)
+    %{resource | scripture_reference: clean_ref}
   end
   defp add_date(resource, html_tree) do
-    [date, _] = html_tree |> get_date_and_scripture()
+    {date, _} = html_tree |> get_date_and_scripture()
     %{resource | date: date}
   end
   defp add_author(resource, html_tree) do
@@ -71,7 +72,15 @@ defmodule BibleStudy.Sermons.TheGospelCoalition do
   end
 
   defp get_date_and_scripture(html_tree) do
-    search_tree(html_tree, ".scripture_ref") |> String.split("|") |> Enum.map(&String.strip/1)
+    case parse_date_and_scripture(html_tree) do
+      [date, ref] -> {date, ref}
+      [ref] -> {"", ref}
+    end
+  end
+  defp parse_date_and_scripture(html_tree) do
+    search_tree(html_tree, ".scripture_ref")
+    |> String.split("|")
+    |> Enum.map(&String.strip/1)
   end
 
   defp search_tree(html_tree, css_selector) do
