@@ -27,30 +27,30 @@ defmodule BibleStudy.PassageTest do
     assert passage.last_verse == 23
   end
 
-  test ".from_string sets last verse as 200 when Romans 3:23-4:2" do
+  test ".from_string sets last verse as 176 when Romans 3:23-4:2" do
     passage = Passage.from_string("Romans 3:23-4:2")
 
-    assert passage.verses == "23-200"
+    assert passage.verses == "23-176"
     assert passage.first_verse == 23
-    assert passage.last_verse == 200
+    assert passage.last_verse == 176
   end
 
   test ".from_string sets verses as 1-200 when only chapters are given" do
     passage = Passage.from_string("Romans 3")
 
     assert passage.chapter == 3
-    assert passage.verses == "1-200"
+    assert passage.verses == "1-176"
     assert passage.first_verse == 1
-    assert passage.last_verse == 200
+    assert passage.last_verse == 176
   end
 
   test ".from_string only accounts for first chapter if multiple chapters are given" do
     passage = Passage.from_string("Romans 3-4")
 
     assert passage.chapter == 3
-    assert passage.verses == "1-200"
+    assert passage.verses == "1-176"
     assert passage.first_verse == 1
-    assert passage.last_verse == 200
+    assert passage.last_verse == 176
   end
 
   test ".from_string parses books prefixed by numbers, e.g. 1 Corinthian" do

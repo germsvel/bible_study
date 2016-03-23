@@ -1,6 +1,8 @@
 defmodule BibleStudy.Passage do
   defstruct [:book, :chapter, :verses, :original, :first_verse, :last_verse]
 
+  @longest_chapter_length "176"
+
   def from_string(""), do: %BibleStudy.Passage{}
   def from_string(passage) do
     parse_passage(passage, String.split(passage))
@@ -31,20 +33,18 @@ defmodule BibleStudy.Passage do
       [chapter, verses] -> {chapter, verses}
       [chapter, v_to_ch, _last_verse] ->
         [first_verse] = String.split(v_to_ch, "-") |> Enum.take(1)
-        {chapter, "#{first_verse}-200"}
+        {chapter, "#{first_verse}-#{@longest_chapter_length}"}
     end
   end
 
   defp get_first_or_only_chapter(chapter) do
-    # trying to account for scenario like
-    # Romans 1-18
+    # account for Romans 1-18 scenario
     [first | _] = String.split(chapter, "-")
-    {first, "1-200"}
+    {first, "1-#{@longest_chapter_length}"}
   end
 
   defp split_verses(verses) do
     case String.split(verses, "-") do
-      [first_verse, "200"] -> {first_verse, "200"} # longest chapter is 176 verses
       [first_verse, last_verse] -> {first_verse, last_verse}
       [first_verse] -> {first_verse, first_verse}
     end
