@@ -8,7 +8,6 @@ defmodule BibleStudy.Sermons.TheGospelCoalition do
     |> request_page()
     |> process_response()
     |> filter_resources_by_passage(passage)
-    |> IO.inspect
   end
 
   defp generate_url(passage) do
