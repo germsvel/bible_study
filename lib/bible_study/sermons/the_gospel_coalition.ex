@@ -58,9 +58,7 @@ defmodule BibleStudy.Sermons.TheGospelCoalition do
   end
   defp add_scripture_ref(resource, html_tree) do
     {_, ref} = html_tree |> get_date_and_scripture()
-    [romans_ref] = ref |> String.split(";") |> Enum.filter(fn (x) -> String.contains?(x, "Romans") end) |> Enum.take(1)
-    clean_ref = String.strip(romans_ref)
-    %{resource | scripture_reference: clean_ref}
+    %{resource | scripture_reference: ref}
   end
   defp add_date(resource, html_tree) do
     {date, _} = html_tree |> get_date_and_scripture()
@@ -72,14 +70,20 @@ defmodule BibleStudy.Sermons.TheGospelCoalition do
 
   defp get_date_and_scripture(html_tree) do
     case parse_date_and_scripture(html_tree) do
-      [date, ref] -> {date, ref}
-      [ref] -> {"", ref}
+      [date, ref] -> {date, clean_ref(ref)}
+      [ref] -> {"", clean_ref(ref)}
     end
   end
   defp parse_date_and_scripture(html_tree) do
     search_tree(html_tree, ".scripture_ref")
     |> String.split("|")
     |> Enum.map(&String.strip/1)
+  end
+  defp clean_ref(ref) do
+    [h | _] = ref
+            |> String.split(";")
+            |> Enum.take(1)
+    String.strip(h)
   end
 
   defp search_tree(html_tree, css_selector) do
