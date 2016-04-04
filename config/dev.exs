@@ -41,3 +41,6 @@ config :bible_study, BibleStudy.Repo,
   database: "bible_study_dev",
   hostname: "localhost",
   pool_size: 10
+
+# Configure modules to be used
+config :bible_study, :resource_sources, [BibleStudy.Sermons.DesiringGod, BibleStudy.Sermons.UniversityReformedChurch, BibleStudy.Sermons.TheGospelCoalition]

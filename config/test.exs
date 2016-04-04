@@ -20,3 +20,6 @@ config :bible_study, BibleStudy.Repo,
   database: "bible_study_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Configure modules to be used
+config :bible_study, :resource_sources, [BibleStudy.Sermons.Mock]
