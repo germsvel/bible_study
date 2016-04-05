@@ -8,9 +8,9 @@ defmodule BibleStudy.Bible do
 
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          body |> String.replace("=", "") |> String.replace("_", "")
+          body |> String.replace("=", "") |> String.replace("_", "") |> String.strip
       {:ok, %HTTPoison.Response{status_code: 404}} ->
-          IO.puts "Not found :("
+          IO.puts "Not found"
       {:error, %HTTPoison.Error{reason: reason}} ->
           IO.inspect reason
       _ ->
