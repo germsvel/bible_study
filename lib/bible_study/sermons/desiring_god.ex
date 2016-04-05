@@ -1,12 +1,13 @@
 defmodule BibleStudy.Sermons.DesiringGod do
   alias BibleStudy.StudyResource, as: Resource
+  alias BibleStudy.HTTPClient
 
   @base_url "http://www.desiringgod.org"
 
   def find(passage) do
     generate_url(passage)
-    |> request_page()
-    |> process_response()
+    |> request_page
+    |> process_response
     |> filter_resources_by_passage(passage)
   end
 
@@ -15,16 +16,8 @@ defmodule BibleStudy.Sermons.DesiringGod do
   end
 
   defp request_page(url) do
-    case HTTPoison.get(url) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          body
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
-          IO.puts "Not found :("
-      {:error, %HTTPoison.Error{reason: reason}} ->
-          IO.inspect reason
-      _ ->
-        IO.puts "Could not find #{url}"
-    end
+    {:ok, body} = HTTPClient.get(url)
+    body
   end
 
   defp process_response(nil), do: ""

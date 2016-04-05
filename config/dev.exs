@@ -44,3 +44,4 @@ config :bible_study, BibleStudy.Repo,
 
 # Configure modules to be used
 config :bible_study, :resource_sources, [BibleStudy.Sermons.DesiringGod, BibleStudy.Sermons.UniversityReformedChurch, BibleStudy.Sermons.TheGospelCoalition]
+config :bible_study, :http_client, BibleStudy.HTTPClient

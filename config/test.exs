@@ -23,3 +23,4 @@ config :bible_study, BibleStudy.Repo,
 
 # Configure modules to be used
 config :bible_study, :resource_sources, [BibleStudy.Sermons.Mock]
+config :bible_study, :http_client, BibleStudy.HTTPClientMock

@@ -1,21 +1,22 @@
 defmodule BibleStudy.Bible do
+  alias BibleStudy.HTTPClient
+
   @base_url "http://www.esvapi.org/v2/rest/passageQuery"
 
   def find(passage) do
-    url = passage
-        |> parse_passage()
-        |> generate_url()
+    passage
+    |> parse_passage
+    |> generate_url
+    |> get_passage
+  end
 
-    case HTTPoison.get(url) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          body |> String.replace("=", "") |> String.replace("_", "") |> String.strip
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
-          IO.puts "Not found"
-      {:error, %HTTPoison.Error{reason: reason}} ->
-          IO.inspect reason
-      _ ->
-        IO.puts "Error retrieving passage #{passage.original}"
-    end
+  defp get_passage(url) do
+    {:ok, body} = HTTPClient.get(url)
+
+    body
+    |> String.replace("=", "")
+    |> String.replace("_", "")
+    |> String.strip
   end
 
   defp parse_passage(passage) do
