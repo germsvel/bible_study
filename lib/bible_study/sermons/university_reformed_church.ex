@@ -4,11 +4,23 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
 
   @base_url "http://www.universityreformedchurch.org"
 
-  def find(passage) do
+  def start_link(passage, sermon_ref, owner) do
+    Task.start_link(__MODULE__, :find, [passage, sermon_ref, owner])
+  end
+
+  def find(passage, sermon_ref, owner) do
     generate_url(passage)
     |> request_page
     |> process_response
     |> filter_resources_by_passage(passage)
+    |> send_result(sermon_ref, owner)
+  end
+
+  defp send_result(nil, sermon_ref, owner) do
+    send(owner, {:results, sermon_ref, []})
+  end
+  defp send_result(results, sermon_ref, owner) do
+    send(owner, {:results, sermon_ref, results})
   end
 
   defp generate_url(passage) do

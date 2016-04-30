@@ -9,6 +9,7 @@ defmodule BibleStudy do
     children = [
       # Start the endpoint when the application starts
       supervisor(BibleStudy.Endpoint, []),
+      supervisor(BibleStudy.Sermons.Supervisor, []),
       # Start the Ecto repository
       worker(BibleStudy.Repo, []),
       # Here you could define other workers and supervisors as children
