@@ -1,5 +1,4 @@
 defmodule BibleStudy.HTTPClient do
-
   def get(url) do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
@@ -12,6 +11,4 @@ defmodule BibleStudy.HTTPClient do
         {:error, "Could not retrieve #{url}"}
     end
   end
-
-
 end
