@@ -3,8 +3,8 @@ defmodule BibleStudy.Passage do
 
   @longest_chapter_length "176"
 
-  def from_string(""), do: %BibleStudy.Passage{}
-  def from_string(passage) do
+  def new(""), do: %BibleStudy.Passage{}
+  def new(passage) do
     parse_passage(passage, String.split(passage))
   end
 

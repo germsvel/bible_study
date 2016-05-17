@@ -31,7 +31,6 @@ defmodule BibleStudy.SearchController do
 
   defp get_passage(params) do
     %{"passage" => passage} = Map.get(params, "search")
-    Passage.from_string(passage)
+    Passage.new(passage)
   end
-
 end

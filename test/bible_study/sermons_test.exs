@@ -4,7 +4,7 @@ defmodule BibleStudy.SermonsTest do
   alias BibleStudy.Passage
 
   test ".find(passage) returns a list of sermon resources" do
-    passage = Passage.from_string("Romans 3:23")
+    passage = Passage.new("Romans 3:23")
 
     [%{type: type} | _] = Sermons.find(passage)
 

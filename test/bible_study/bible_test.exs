@@ -4,7 +4,7 @@ defmodule BibleStudy.BibleTest do
   alias BibleStudy.Passage
 
   test ".find(passage) returns a bible text" do
-    passage = Passage.from_string("Romans 3:23")
+    passage = Passage.new("Romans 3:23")
 
     text = Bible.find(passage)
 
