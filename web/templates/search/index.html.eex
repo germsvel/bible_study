@@ -1,24 +1,33 @@
 <div>
-  <%= form_for @conn, search_path(@conn, :create), [as: :search], fn f -> %>
-    <%= text_input f, :passage %>
-    <%= submit "Search" %>
-  <% end %>
-  <p>Search a Bible passage to find resources</p>
+  <div class="search-form">
+    <%= form_for @conn, search_path(@conn, :create), [as: :search, class: "form-inline"], fn f -> %>
+      <div class="input-group">
+        <%= text_input f, :passage, class: "form-control", placeholder: "Romans 8:1-5"  %>
+        <span class="input-group-btn">
+          <button type="submit" value: "Search" class="btn btn-default">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div>
+    <% end %>
+  </div>
 
   <h4><%= @passage %></h4>
   <%= @scripture %>
 
   <ul>
-    <h4>Sermons</h4>
-    <%= for sermon <- @sermons do %>
-      <li>
-        <a href=<%= sermon.url %> target="_blank">
-          <p><%= sermon.title %></p>
-        </a>
-        <p><%= sermon.scripture_reference %></p>
-        <p><%= sermon.date %></p>
-        <p>By <%= sermon.author %></p>
-      </li>
+    <% if @sermons do %>
+      <h4>Sermons</h4>
+      <%= for sermon <- @sermons do %>
+        <li>
+          <a href=<%= sermon.url %> target="_blank">
+            <p><%= sermon.title %></p>
+          </a>
+          <p><%= sermon.scripture_reference %></p>
+          <p><%= sermon.date %></p>
+          <p>By <%= sermon.author %></p>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
