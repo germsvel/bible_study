@@ -5,3 +5,27 @@
   width: 80%;
   margin: 2em auto 2em auto;
 }
+
+.sermon-card {
+  .sermon-card-body {
+    font-size: 12px;
+    line-height: 10px;
+
+    .scripture-reference {
+      font-size: 13px;
+    }
+  }
+
+  .sermon-card-header {
+    font-size: 16px;
+    padding-bottom: 6px;
+  }
+}
+
+.sermons-list {
+  margin: auto 1em auto 1em;
+}
+
+.scripture-passage {
+  font-size: 13px;
+}

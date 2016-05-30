@@ -6,9 +6,9 @@ defmodule BibleStudy.SearchController do
 
   def index(conn, _params) do
     conn
-    |> assign(:passage, "")
-    |> assign(:scripture, "")
-    |> assign(:sermons, [])
+    |> assign(:passage, nil)
+    |> assign(:scripture, nil)
+    |> assign(:sermons, nil)
     |> render("index.html")
   end
 
