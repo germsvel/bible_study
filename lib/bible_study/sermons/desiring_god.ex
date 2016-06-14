@@ -40,7 +40,8 @@ defmodule BibleStudy.Sermons.DesiringGod do
   end
 
   defp create_resource(html_tree) do
-    %Resource{type: :sermon}
+    Resource.new
+    |> Resource.add_type(:sermon)
     |> add_title(html_tree)
     |> add_url(html_tree)
     |> add_scripture_ref(html_tree)
