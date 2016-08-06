@@ -10,5 +10,4 @@ defmodule BibleStudy.SermonsTest do
 
     assert type == :sermon
   end
-
 end

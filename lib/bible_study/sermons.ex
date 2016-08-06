@@ -14,7 +14,7 @@ defmodule BibleStudy.Sermons do
   defp find_sermons(source, passage) do
     sermon_ref = make_ref()
     opts = [source, passage, sermon_ref, self()]
-    {:ok, pid} = Supervisor.start_child(BibleStudy.Sermons.Supervisor, opts)
+    {:ok, pid} = BibleStudy.Sermons.Supervisor.start_child(opts)
     monitor_ref = Process.monitor(pid)
     {pid, monitor_ref, sermon_ref}
   end

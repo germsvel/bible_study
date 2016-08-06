@@ -55,21 +55,21 @@ defmodule BibleStudy.Sermons.DesiringGod do
                   |> Enum.take(1)
 
     url = @base_url <> relative_url
-    %{resource | url: url}
+    Resource.add_url(resource, url)
   end
   defp add_title(resource, html_tree) do
-    %{resource | title: search_tree(html_tree, ".title") }
+    Resource.add_title(resource, search_tree(html_tree, ".title"))
   end
   defp add_scripture_ref(resource, html_tree) do
     ref = search_tree(html_tree, ".scripture-reference") |> String.replace("–", "-")
-    %{resource | scripture_reference: ref}
+    Resource.add_scripture_ref(resource, ref)
   end
   defp add_date(resource, html_tree) do
-    %{resource | date: search_tree(html_tree, ".time")}
+    Resource.add_date(resource, search_tree(html_tree, ".time"))
   end
   defp add_author(resource, html_tree) do
     author = search_tree(html_tree, ".author") |> String.replace("by", "") |> String.strip
-    %{resource | author: author}
+    Resource.add_author(resource, author)
   end
 
   defp search_tree(html_tree, css_selector) do
