@@ -1,39 +1,35 @@
-<div>
-  <div class="search-form">
-    <%= form_for @conn, search_path(@conn, :create), [as: :search, class: "form-inline"], fn f -> %>
-      <div class="input-group">
-        <%= text_input f, :passage, class: "form-control", placeholder: "e.g. Romans 8:1-5"  %>
-        <span class="input-group-btn">
-          <button type="submit" value: "Search" class="btn btn-primary">
-            <i class="fa fa-search"></i>
-          </button>
-        </span>
+<%= form_for @conn, search_path(@conn, :create), [as: :search, class: "search-form form-inline"], fn f -> %>
+  <div class="input-group">
+    <%= text_input f, :passage, class: "form-control", placeholder: "e.g. Romans 8:1-5"  %>
+    <span class="input-group-btn">
+      <button type="submit" value: "Search" class="btn btn-primary">
+        <i class="fa fa-search"></i>
+      </button>
+    </span>
+  </div>
+<% end %>
+
+<%= if @passage do %>
+  <blockquote class="scripture-passage">
+    <p class="passage-text"><%= @scripture %></p>
+    <footer>
+      <cite><%= @passage %></cite>
+    </footer>
+  </blockquote>
+<% end %>
+
+<div class="sermons-list">
+  <%= if @sermons do %>
+    <%= for sermon <- @sermons do %>
+      <div class="sermon-card">
+        <h2 class="sermon-card-header">
+          <a href=<%= sermon.url %> target="_blank" class="sermon-title"><%= sermon.title %></a>
+        </h2>
+        <div class="sermon-card-body">
+          <p class="scripture-reference"><%= sermon.scripture_reference %></p>
+          <p><%= sermon.date %> by <%= sermon.author %></p>
+        </div>
       </div>
     <% end %>
-  </div>
-
-  <%= if @passage do %>
-    <blockquote class="scripture-passage">
-      <p class="passage-text"><%= @scripture %></p>
-      <footer>
-        <cite><%= @passage %></cite>
-      </footer>
-    </blockquote>
   <% end %>
-
-  <dl class="sermons-list">
-    <%= if @sermons do %>
-      <%= for sermon <- @sermons do %>
-        <div class="sermon-card">
-          <dt class="sermon-card-header">
-            <a href=<%= sermon.url %> target="_blank" class="sermon-title"><%= sermon.title %></a>
-          </dt>
-          <dd class="sermon-card-body">
-            <p class="scripture-reference"><%= sermon.scripture_reference %></p>
-            <p><%= sermon.date %> by <%= sermon.author %></p>
-          </dd>
-        </div>
-      <% end %>
-    <% end %>
-  </dl>
 </div>

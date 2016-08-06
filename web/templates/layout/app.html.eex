@@ -15,17 +15,17 @@
 
   <body>
     <div class="container" role="main">
-      <div id="header">
+      <header>
         <h1 class="logo">Study the Bible</h2>
         <p class="tagline">search sermons by Bible verse</p>
-      </div>
+      </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
-      <div id="body">
+      <section class="content">
         <%= @inner %>
-      </div>
+      </section>
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

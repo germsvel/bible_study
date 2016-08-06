@@ -1,15 +1,13 @@
 /* Divide the page into sections. Layouts hold one or more
  * modules together */
 
-#header {
-  height: 10em;
-  width: 100%;
-  text-align: center;
-  margin: auto;
-}
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
 
-#body {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+body {
+  margin: 0 auto;
+  max-width: 50em;
+  line-height: 1.5;
+  padding: 0 1em;
+  color: #555;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
