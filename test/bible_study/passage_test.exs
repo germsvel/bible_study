@@ -68,55 +68,43 @@ defmodule BibleStudy.PassageTest do
 
   # Test .compare function
   test ".compare returns true when the passages are the same" do
-    passage = Passage.new("Romans 3:23-25")
-
     similar = Passage.new("Romans 3:23-25")
-            |> Passage.compare(passage)
+            |> Passage.compare("Romans 3:23-25")
 
     assert similar
   end
 
   test ".compare returns false when passages have different books" do
-    passage = Passage.new("James 3:12")
-
     similar = Passage.new("Romans 3:12")
-            |> Passage.compare(passage)
+            |> Passage.compare("James 3:12")
 
     refute similar
   end
 
   test ".compare returns false when passages have different chapters" do
-    passage = Passage.new("Romans 4:12")
-
     similar = Passage.new("Romans 3:12")
-            |> Passage.compare(passage)
+            |> Passage.compare("Romans 4:12")
 
     refute similar
   end
 
   test ".compare returns false when passages have different chapters" do
-    passage = Passage.new("Romans 4:12")
-
     similar = Passage.new("Romans 3:12")
-            |> Passage.compare(passage)
+            |> Passage.compare("Romans 4:12")
 
     refute similar
   end
 
   test ".compare returns false when first_verse is >= 2 away from the original.first_verse" do
-    passage = Passage.new("Romans 3:10-15")
-
     similar = Passage.new("Romans 3:12-15")
-            |> Passage.compare(passage)
+            |> Passage.compare("Romans 3:10-15")
 
     refute similar
   end
 
   test ".compare returns false when last_verse is >= 2 away from the original.last_verse" do
-    passage = Passage.new("Romans 3:9-14")
-
     similar = Passage.new("Romans 3:9-12")
-            |> Passage.compare(passage)
+            |> Passage.compare("Romans 3:9-14")
 
     refute similar
   end

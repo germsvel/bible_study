@@ -55,7 +55,8 @@ defmodule BibleStudy.Passage do
   defp do_split_verses([first_verse, last_verse]), do: {first_verse, last_verse}
   defp do_split_verses([first_verse]), do: {first_verse, first_verse}
 
-  def compare(passage, passage2) do
+  def compare(passage, scripture_ref) do
+    passage2 = new(scripture_ref)
     passage.book == passage2.book &&
     passage.chapter == passage2.chapter &&
     compare_verses(passage, passage2)

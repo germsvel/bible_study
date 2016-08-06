@@ -8,8 +8,7 @@ defmodule BibleStudy.StudyResource do
   end
 
   def relevant_for_passage?(resource, passage) do
-    Passage.new(resource.scripture_reference)
-    |> Passage.compare(passage)
+    Passage.compare(passage, resource.scripture_reference)
   end
 
   def add_type(resource, type) do
