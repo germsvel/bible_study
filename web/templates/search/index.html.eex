@@ -13,7 +13,7 @@
   <blockquote class="scripture-passage">
     <p class="passage-text"><%= @scripture %></p>
     <footer>
-      <cite><%= @passage %></cite>
+      <cite><%= @passage %> (ESV*)</cite>
     </footer>
   </blockquote>
 <% end %>
@@ -33,3 +33,10 @@
     <% end %>
   <% end %>
 </div>
+
+
+<%= if @passage do %>
+  <div class="copyright">
+    * The Holy Bible, English Standard Version copyright &copy;&nbsp;2001 by <a target="_blank" href="http://www.crosswaybibles.org">Crossway Bibles</a>, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.
+  </div>
+<% end %>
