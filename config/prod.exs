@@ -28,6 +28,10 @@ config :bible_study, BibleStudy.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
+# Configure modules to be used
+config :bible_study, :resource_sources, [BibleStudy.Sermons.DesiringGod, BibleStudy.Sermons.UniversityReformedChurch, BibleStudy.Sermons.TheGospelCoalition]
+config :bible_study, :http_client, BibleStudy.HTTPClient
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
