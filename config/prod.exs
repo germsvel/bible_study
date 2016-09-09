@@ -29,7 +29,8 @@ config :bible_study, BibleStudy.Repo,
   ssl: true
 
 # Configure modules to be used
-config :bible_study, :resource_sources, [BibleStudy.Sermons.DesiringGod, BibleStudy.Sermons.UniversityReformedChurch, BibleStudy.Sermons.TheGospelCoalition]
+# BibleStudy.Sermons.UniversityReformedChurch has changed the format of its sermons. We cannot now know at glance the scripture reference
+config :bible_study, :resource_sources, [BibleStudy.Sermons.DesiringGod, BibleStudy.Sermons.TheGospelCoalition]
 config :bible_study, :http_client, BibleStudy.HTTPClient
 
 # ## SSL Support
