@@ -42,6 +42,7 @@ defmodule BibleStudy.Sermons.DesiringGod do
   defp create_resource(html_tree) do
     Resource.new
     |> Resource.add_type(:sermon)
+    |> Resource.add_source("Desiring God")
     |> add_title(html_tree)
     |> add_url(html_tree)
     |> add_scripture_ref(html_tree)

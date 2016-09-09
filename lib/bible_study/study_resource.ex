@@ -34,4 +34,8 @@ defmodule BibleStudy.StudyResource do
   def add_author(resource, author) do
     %{resource | author: author}
   end
+
+  def add_source(resource, source) do
+    %{resource | source: source}
+  end
 end
