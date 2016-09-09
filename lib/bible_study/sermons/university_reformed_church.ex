@@ -2,7 +2,7 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
   alias BibleStudy.StudyResource, as: Resource
   alias BibleStudy.HTTPClient
 
-  @base_url "http://www.universityreformedchurch.org"
+  @base_url "https://www.universityreformedchurch.org"
 
   def start_link(passage, sermon_ref, owner) do
     Task.start_link(__MODULE__, :find, [passage, sermon_ref, owner])
@@ -24,7 +24,7 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
   end
 
   defp generate_url(passage) do
-    "#{@base_url}/teaching/sermons.html?book=#{passage.book}"
+    "#{@base_url}/teaching/sermons/?fwp_book=#{passage.book}&fwp_per_page=100"
   end
 
   defp request_page(url) do
@@ -34,7 +34,7 @@ defmodule BibleStudy.Sermons.UniversityReformedChurch do
 
   defp process_response(nil), do: ""
   defp process_response(body) do
-    Floki.find(body, ".sermonsHomePage")
+    Floki.find(body, ".sermon-facet-loop")
     |> Floki.find("li")
     |> Enum.map(&create_resource/1)
   end

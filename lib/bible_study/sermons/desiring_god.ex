@@ -24,7 +24,7 @@ defmodule BibleStudy.Sermons.DesiringGod do
   end
 
   defp generate_url(passage) do
-    "#{@base_url}/messages/by-scripture/#{passage.book}/#{passage.chapter}"
+    "#{@base_url}/scripture/#{passage.book}/#{passage.chapter}/messages"
   end
 
   defp request_page(url) do
@@ -34,8 +34,8 @@ defmodule BibleStudy.Sermons.DesiringGod do
 
   defp process_response(nil), do: ""
   defp process_response(body) do
-    Floki.find(body, ".sermon_list")
-    |> Floki.find(".media-object")
+    Floki.find(body, ".card-list-view")
+    |> Floki.find(".card--resource")
     |> Enum.map(&create_resource/1)
   end
 
@@ -50,7 +50,7 @@ defmodule BibleStudy.Sermons.DesiringGod do
   end
 
   defp add_url(resource, html_tree) do
-    [relative_url] = Floki.find(html_tree, "a")
+    [relative_url] = Floki.find(html_tree, ".card__inner")
                   |> Floki.attribute("href")
                   |> Enum.take(1)
 
@@ -58,17 +58,17 @@ defmodule BibleStudy.Sermons.DesiringGod do
     Resource.add_url(resource, url)
   end
   defp add_title(resource, html_tree) do
-    Resource.add_title(resource, search_tree(html_tree, ".title"))
+    Resource.add_title(resource, search_tree(html_tree, ".card--resource__title"))
   end
   defp add_scripture_ref(resource, html_tree) do
-    ref = search_tree(html_tree, ".scripture-reference") |> String.replace("–", "-")
+    ref = search_tree(html_tree, ".card--resource__scripture") |> String.replace("Scripture: ", "") |> String.replace("–", "-")
     Resource.add_scripture_ref(resource, ref)
   end
   defp add_date(resource, html_tree) do
-    Resource.add_date(resource, search_tree(html_tree, ".time"))
+    Resource.add_date(resource, search_tree(html_tree, ".card--resource__date"))
   end
   defp add_author(resource, html_tree) do
-    author = search_tree(html_tree, ".author") |> String.replace("by", "") |> String.strip
+    author = search_tree(html_tree, ".card--resource__author") |> String.strip
     Resource.add_author(resource, author)
   end
 
